@@ -14,7 +14,7 @@
 export default async function (event, context, logger) {
     logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
 
-    const results = await context.org.dataApi.query('SELECT Id, Name FROM Account');
+    const results = await context.org.dataApi.query('SELECT Id, Name FROM Account limit 5');
 
     logger.info(JSON.stringify(results));
 
