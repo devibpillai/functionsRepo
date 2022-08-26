@@ -1,4 +1,5 @@
 public with sharing class FunctionApexPOC {
+@future
     public static void test(String inputstring) {
         System.debug('Invoking myfunction');
         System.debug(inputstring);

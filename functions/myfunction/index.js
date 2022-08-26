@@ -12,10 +12,10 @@
  */
  
 export default async function (event, context, logger) {
-    logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
+    //logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
     const oppList =  event.data ;
     logger.info(oppList);
-    //const results = await context.org.dataApi.query('SELECT Id, Name FROM Account limit 5select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c IN : oppList');
+    const results = await context.org.dataApi.query('SELECT Id, Name FROM Account limit 5select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c IN : oppList');
 
     logger.info(JSON.stringify(results));
 
