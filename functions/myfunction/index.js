@@ -16,9 +16,13 @@ export default async function (event, context, logger) {
     logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
     logger.info(`Invoking parse below-------->>`);
     const payload = event.data;
-    
+    const oppID = [];
+    for(let i = 0; i < payload.length; i++) {
+        oppID.push(payload[i].Id);
+    }
+    logger.info(`Invoking oppID ----->> ${oppID}`);
     logger.info(`Invoking payload ----->> ${payload[0].Id}`);
-    const results = await context.org.dataApi.query(`select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c = '${payload[0].Id}'`);
+    const results = await context.org.dataApi.query(`select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c IN:${oppID}`);
 
     logger.info(JSON.stringify(results));
 
