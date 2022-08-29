@@ -18,7 +18,7 @@ export default async function (event, context, logger) {
     const payload = event.data;
     
     logger.info(`Invoking payload ----->> ${payload[0].Id}`);
-    const results = await context.org.dataApi.query(`select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c = ${payload[0].Id}`);
+    const results = await context.org.dataApi.query(`select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c = '${payload[0].Id}'`);
 
     logger.info(JSON.stringify(results));
 
