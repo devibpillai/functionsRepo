@@ -13,10 +13,12 @@
  
 export default async function (event, context, logger) {
     logger.info(`Invoking Myfunction with payload `);
-    //logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
-    const oppList =  JSON.parse(event.data);
-
-    logger.info(oppList);
+    logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
+    var evtData = JSON.stringify(event.data);
+    const oppList =  JSON.parse(evtData);
+    const opp = JSON.parse(event.data);
+    logger.info(`Invoking oppList ----->> ${oppList}`);
+    logger.info(`Invoking opp ----->> ${opp}`);
     const results = await context.org.dataApi.query('SELECT Id, Name FROM Account limit 5select Opportunity_Name__c ,Id,Name from Revenue__c where Opportunity_Name__c IN : oppList');
 
     logger.info(JSON.stringify(results));
