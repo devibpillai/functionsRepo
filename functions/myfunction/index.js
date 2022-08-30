@@ -16,13 +16,14 @@ export default async function (event, context, logger) {
     logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
     logger.info(`Invoking parse below-------->>`);
     const payload = event.data;
-    const oppID = [];
+    const oppID = '' ;
     for(let i = 0; i < payload.length; i++) {
-        oppID.push(payload[i].Id);
+        oppID = oppID+"'"+payload[i].Id +"',";
     }
+    oppID = oppID.slice(0, -1);
     logger.info(`Invoking oppID ----->> ${oppID}`);
     logger.info(`Invoking payload ----->> ${payload[0].Id}`);
-    const results = await context.org.dataApi.query(`SELECT Opportunity_Name__c ,Id,Name FROM Revenue__c WHERE Opportunity_Name__c ='${oppID}'`);
+    const results = await context.org.dataApi.query(`SELECT Opportunity_Name__c ,Id,Name FROM Revenue__c WHERE Opportunity_Name__c IN '(${oppID})'`);
 
     logger.info(JSON.stringify(results));
 
