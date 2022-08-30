@@ -22,7 +22,7 @@ export default async function (event, context, logger) {
     }
     logger.info(`Invoking oppID ----->> ${oppID}`);
     logger.info(`Invoking payload ----->> ${payload[0].Id}`);
-    const results = await context.org.dataApi.query(`SELECT Opportunity_Name__c ,Id,Name FROM Revenue__c limit 10`);
+    const results = await context.org.dataApi.query(`SELECT Opportunity_Name__c ,Id,Name FROM Revenue__c WHERE Opportunity_Name__c IN:${oppID}`);
 
     logger.info(JSON.stringify(results));
 
