@@ -16,7 +16,7 @@ export default async function (event, context, logger) {
     logger.info(`Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`);
     logger.info(`Invoking parse below-------->>`);
     const payload = event.data;
-    const oppID = '' ;
+    var oppID = '' ;
     try{
     for(let i = 0; i < payload.length; i++) {
         oppID = oppID+"'"+payload[i].Id +"',";
