@@ -28,6 +28,7 @@ export default async function (event, context, logger) {
     const results = await context.org.dataApi.query(`SELECT Opportunity_Name__c ,Id,Name FROM Revenue__c WHERE Opportunity_Name__c IN ${oppID}`);
 
     logger.info(JSON.stringify(results));
+    try {
     var revDelete = []; 
     const uow = context.org.dataApi.newUnitOfWork();
     for(let i = 0; i < results.length; i++){
@@ -59,7 +60,7 @@ export default async function (event, context, logger) {
                             
         }
     }*/
-    try {
+    
         // Commit the Unit of Work with all the previous registered operations
         const response = await context.org.dataApi.commitUnitOfWork(uow);
         
