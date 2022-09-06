@@ -32,10 +32,10 @@ export default async function (event, context, logger) {
     var revDelete = []; 
     const uow = context.org.dataApi.newUnitOfWork();
     for(let i = 0; i < results.records.length; i++){
-      logger.info(`revDelete ----->> ${results.records[i].Id}`);
+      logger.info(`revDelete inside forloop ----->> ${results.records[i].fields.Id}`);
         const revDML = uow.registerDelete({
         type: "Revenue__c",
-        id:results.records[i].Id
+        id:results.records[i].fields.Id
         });
         revDelete.push(revDML);
     }
