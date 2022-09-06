@@ -38,6 +38,7 @@ export default async function (event, context, logger) {
         });
         revDelete.push(revDML);
     }
+    logger.info(`revDelete ----->> ${revDelete}`);
     /*const oliQuery = await context.org.dataApi.query(`Select opportunityId,Business__c,Modality_Offering__c,PricebookEntryId,PricebookEntry.Product2Id, TotalPrice, UnitPrice,Modality__c,Product_Name__c, ListPrice,Domain_Name__c ,Business_Category__c From OpportunityLineItem where opportunityId IN ${oppID} AND TotalPrice!=0`);
     const oliOptyMap = new Map();
     for(let i = 0; i < oliQuery.length; i++){
