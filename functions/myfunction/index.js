@@ -36,6 +36,7 @@ export default async function (event, context, logger) {
     const resultsAc = await context.org.dataApi.query(
       `SELECT Id,Name FROM Account`
     );
+    logger.info(`resultsAc ----->> ${resultsAc}`);
     var revDelete = [];
     const uow = context.org.dataApi.newUnitOfWork();
     for (let i = 0; i < results.records.length; i++) {
