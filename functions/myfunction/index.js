@@ -26,9 +26,6 @@ export default async function (event, context, logger) {
   oppID = "(" + oppID.slice(0, -1) + ")";
   logger.info(`Invoking oppID ----->> ${oppID}`);
   logger.info(`Invoking payload ----->> ${payload[0].Id}`);
-  const results = await context.org.dataApi.query(
-    `SELECT Id,Name FROM Account`
-  );
 
   const results = await context.org.dataApi.query(
     `SELECT Opportunity_Name__c ,Id,Name FROM Revenue__c WHERE Opportunity_Name__c IN ${oppID}`
@@ -36,6 +33,9 @@ export default async function (event, context, logger) {
 
   logger.info(JSON.stringify(results));
   try {
+    const resultsAc = await context.org.dataApi.query(
+      `SELECT Id,Name FROM Account`
+    );
     var revDelete = [];
     const uow = context.org.dataApi.newUnitOfWork();
     for (let i = 0; i < results.records.length; i++) {
