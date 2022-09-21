@@ -10,7 +10,7 @@
  * @param logger: logging handler used to capture application logs and trace specifically
  *                 to a given execution of a function.
  */
-
+import fetch from "node-fetch";
 export default async function (event, context, logger) {
   //-------start-------------
   var url;
@@ -35,7 +35,7 @@ export default async function (event, context, logger) {
   pwd = "";
   var jsonString =
     '[{"updhId":null,"upCommercialId":"U-6TS2F2","taxId":null,"sumAR3Y":0.00,"sfid":"0010c00001yiZAcAAM","request_type":"BIR-Only","pCommercialId":null,"oaUPDuns":null,"oaDuns":null,"highestARbalanceGE":0.00,"GlobalRegion":"AKA","dnbForceFlag":false,"dfhcId":null,"CountryName":"Australia","commercialId":"U-6TS2F2","birReportFlag":false}]';
-
+  logger.info(`JSON Constructed-------->>`);
   //Http http = new Http();
   //HttpRequest req = new HttpRequest();
   //req.setEndpoint(url);
