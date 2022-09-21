@@ -12,6 +12,73 @@
  */
 
 export default async function (event, context, logger) {
+  //-------start-------------
+  var url;
+  var client_id;
+  var client_secret;
+  var grant_type;
+  var token_value;
+  var api_scope;
+  var Username;
+  var pwd;
+  var refresh_token;
+  var endpoint;
+
+  url = "https://fssfed.ge.com/fss/as/token.oauth2";
+  grant_type = "client_credentials";
+  client_id = "GEHC_CREDIT_PORTAL_DEV_OIDC_Client";
+  client_secret =
+    "XDhWbbizjsScAEMnMFJfMRtsnYjwh4fWb7a9Z34LpATWYA93DhupMoSpPZdB";
+  api_scope = "Heroku_API";
+  endpoint = "https://dev-gehc-cp.herokuapp.com/services/account/creditrequest";
+  Username = "";
+  pwd = "";
+  var jsonString =
+    '[{"updhId":null,"upCommercialId":"U-6TS2F2","taxId":null,"sumAR3Y":0.00,"sfid":"0010c00001yiZAcAAM","request_type":"BIR-Only","pCommercialId":null,"oaUPDuns":null,"oaDuns":null,"highestARbalanceGE":0.00,"GlobalRegion":"AKA","dnbForceFlag":false,"dfhcId":null,"CountryName":"Australia","commercialId":"U-6TS2F2","birReportFlag":false}]';
+
+  //Http http = new Http();
+  //HttpRequest req = new HttpRequest();
+  //req.setEndpoint(url);
+  //req.setMethod('POST');
+  //req.setBody('grant_type='+grant_type+'&client_id='+client_id+'&client_secret='+client_secret);
+  //HTTPResponse res = http.send(req);
+  //var response = '';
+  fetch(url, {
+    method: "post", // Default is 'get'
+    body: JSON.stringify(
+      "grant_type=" +
+        grant_type +
+        "&client_id=" +
+        client_id +
+        "&client_secret=" +
+        client_secret
+    ),
+    mode: "cors",
+    headers: new Headers({
+      "Content-Type": "application/json"
+    })
+  })
+    .then((response) => response.json())
+    .then((json) => console.log("Response", json));
+  /*if (json.status == 200) {
+   response = JSON.serializePretty(JSON.deserializeUntyped(res.getBody()));
+   }*/
+  logger.info(`response ---> ${response}`);
+
+  var authorizationHeader = "Bearer " + token_value;
+  var endPointURL = endpoint;
+  fetch(endPointURL, {
+    method: "post", // Default is 'get'
+    body: jsonString,
+    mode: "cors",
+    headers: new Headers({
+      "Content-Type": "application/json",
+      Authorization: authorizationHeader
+    })
+  })
+    .then((response) => response.json())
+    .then(logger.info(`response ---> ${json}`));
+
   logger.info(`Invoking Myfunction with payload `);
   logger.info(
     `Invoking Myfunction with payload ${JSON.stringify(event.data || {})}`
@@ -75,6 +142,14 @@ export default async function (event, context, logger) {
 
     // Commit the Unit of Work with all the previous registered operations
     const response = await context.org.dataApi.commitUnitOfWork(uow);
+    const Http = new XMLHttpRequest();
+    const url = "https://jsonplaceholder.typicode.com/posts";
+    Http.open("GET", url);
+    Http.send();
+
+    Http.onreadystatechange = (e) => {
+      console.log(Http.responseText);
+    };
 
     return response;
   } catch (err) {
